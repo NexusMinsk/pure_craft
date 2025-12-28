@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure_Cruft — Зажигаем магию</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* СБРОС */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: #0c0c0c;
+            color: #fefcf7;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* ФОН С МЕРЦАНИЕМ */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 200, 0, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px rgba(255, 200, 0, 0.6);
+            animation: sparkle 3s infinite alternate;
+        }
+
+        @keyframes sparkle {
+            0% { opacity: 0.3; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* КОНТЕНТ */
+        .container {
+            z-index: 10;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: #fefcf7;
+            text-shadow: 0 0 20px rgba(255, 200, 0, 0.7);
+            opacity: 0;
+            animation: fadeIn 2s forwards 0.5s;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            opacity: 0;
+            animation: fadeIn 2s forwards 1s;
+        }
+
+        /* ПЛАМЯ */
+        .flame-container {
+            position: relative;
+            width: 120px;
+            height: 180px;
+            margin: 40px auto;
+        }
+
+        .flame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                rgba(255, 230, 150, 1) 0%, 
+                rgba(255, 180, 50, 0.8) 40%, 
+                rgba(255, 100, 0, 0.4) 70%, 
+                transparent 85%);
+            border-radius: 50% 50% 20% 20%;
+            filter: blur(15px);
+            animation: fire 1.5s infinite alternate;
+            transform-origin: bottom center;
+        }
+
+        .flame-inner {
+            position: absolute;
+            top: 10%;
+            left: 25%;
+            width: 50%;
+            height: 60%;
+            background: rgba(255, 255, 200, 0.9);
+            border-radius: 50%;
+            filter: blur(8px);
+            animation: innerFire 1s infinite alternate-reverse;
+        }
+
+        .candle {
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 30%;
+            background: linear-gradient(to right, #8b9991, #9c8a70);
+            border-radius: 10px 10px 0 0;
+        }
+
+        @keyframes fire {
+            0%, 100% { 
+                transform: scaleY(1) scaleX(1); 
+                opacity: 0.9; 
+            }
+            50% { 
+                transform: scaleY(1.1) scaleX(0.95); 
+                opacity: 1; 
+            }
+        }
+
+        @keyframes innerFire {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.9; }
+        }
+
+        /* ПРОГРЕСС БАР */
+        .progress-container {
+            width: 300px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 40px auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2a5c3d, #ffc800);
+            border-radius: 10px;
+            animation: load 3.5s ease-in-out forwards;
+            box-shadow: 0 0 10px rgba(255, 200, 0, 0.5);
+        }
+
+        @keyframes load {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* ТЕКСТ ЗАГРУЗКИ */
+        .loading-text {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            opacity: 0.7;
+            opacity: 0;
+            animation: fadeIn 1s forwards 1s;
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeIn 1s forwards 3s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ПАДАЮЩИЕ СНЕЖИНКИ (НОВОГОДНИЙ ЭФФЕКТ) */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="background" id="spark-container"></div>
+
+    <div class="container">
+        <div class="logo">PURE_CRAFT</div>
+        <div class="tagline">Магия соевого воска рождается здесь...</div>
+
+        <div class="flame-container">
+            <div class="flame"></div>
+            <div class="flame-inner"></div>
+            <div class="candle"></div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+
+
+        <div class="loading-text">Обоняние — самое древнее чувство. Приготовьтесь к путешествию.</div>
+    </div>
+
+   
+
+    <script>
+        // Создаём мерцающие искры
+        const sparkContainer = document.getElementById('spark-container');
+        for (let i = 0; i < 40; i++) {
+            const spark = document.createElement('div');
+            spark.classList.add('spark');
+            spark.style.left = `${Math.random() * 100}%`;
+            spark.style.top = `${Math.random() * 100}%`;
+            spark.style.animationDelay = `${Math.random() * 3}s`;
+            sparkContainer.appendChild(spark);
+        }
+
+        // Создаём снежинки
+        for (let i = 0; i < 20; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = `${Math.random() * 100}%`;
+            snowflake.style.animationDuration = `${5 + Math.random() * 10}s`;
+            snowflake.style.animationDelay = `${Math.random() * 5}s`;
+            document.body.appendChild(snowflake);
+        }
+
+        // Перенаправление через 4 секунды
+        setTimeout(() => {
+            window.location.href = 'index.html'; // Переход на основной лендинг
+        }, 4000);
+    </script>
+</body>
+</html>
