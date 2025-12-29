@@ -223,6 +223,7 @@ section {
     background-size: cover !important;
     background-position: center;
     background-attachment: fixed;
+    object-fit: cover;
 }
 
 .hero-video {
@@ -1694,6 +1695,7 @@ section {
         opacity: 0.7;
     }
 }
+
 
 
 
