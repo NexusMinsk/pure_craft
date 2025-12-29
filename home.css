@@ -225,6 +225,12 @@ section {
     background-attachment: fixed;
 }
 
+@supports (-webkit-touch-callout: none) {
+    .hero {
+        background-attachment: scroll;
+    }
+}
+
 .hero-video {
     position: absolute;
     top: 0;
@@ -1694,4 +1700,5 @@ section {
         opacity: 0.7;
     }
 }
+
 
